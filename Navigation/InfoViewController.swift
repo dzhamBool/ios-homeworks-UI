@@ -21,9 +21,12 @@ let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
     @objc private func tapAction() {
         let alert = UIAlertController(title: "Attention!", message: "Хотите покинуть страницу?", preferredStyle: .alert)
         let okActon = UIAlertAction(title: "Yes", style: .default) { _ in
+            print("Прочитано")
             self.dismiss(animated: true)
         }
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel) { _ in
+print("Отмена")
+        }
         alert.addAction(cancelAction)
         alert.addAction(okActon)
         present(alert, animated: true)
