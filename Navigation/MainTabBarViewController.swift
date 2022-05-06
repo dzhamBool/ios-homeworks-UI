@@ -3,7 +3,7 @@
 import UIKit
 
 class MainTabBarViewController: UITabBarController {
-   let startVC = StartViewController()
+    let startVC = StartViewController()
     let firstVC = FeedViewController()
     let secondVC = ProfileViewController()
 
@@ -14,7 +14,7 @@ class MainTabBarViewController: UITabBarController {
 
     private func setupControllers() {
 
-let startNavController = UINavigationController(rootViewController: startVC)
+        let startNavController = UINavigationController(rootViewController: startVC)
         startVC.tabBarItem.title = "Главная"
         startVC.tabBarItem.image = UIImage(systemName: "house")
 

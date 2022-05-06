@@ -2,13 +2,11 @@
 import UIKit
 
 struct Post {
-var title: String
+    var title: String
 }
 
 class PostViewController: UIViewController {
-
     var post: Post?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = post?.title
@@ -16,11 +14,11 @@ class PostViewController: UIViewController {
         makeInfoButton()
     }
     private func makeInfoButton() {
-    let barButton = UIBarButtonItem(title: "FORVARD", style: .plain, target: self, action: #selector(tapAction))
+        let barButton = UIBarButtonItem(title: "FORVARD", style: .plain, target: self, action: #selector(tapAction))
         navigationItem.rightBarButtonItem = barButton
-}
+    }
     @objc private func tapAction() {
-let infoVC = InfoViewController()
+        let infoVC = InfoViewController()
         present(infoVC, animated: true)
     }
 }
