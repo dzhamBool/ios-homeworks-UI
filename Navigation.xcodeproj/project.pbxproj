@@ -17,6 +17,7 @@
 		3031D053282532D200066735 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D052282532D200066735 /* StartViewController.swift */; };
 		3031D0552825377C00066735 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D0542825377C00066735 /* FeedViewController.swift */; };
 		3031D057282541F300066735 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D056282541F300066735 /* PostViewController.swift */; };
+		3031D059282573DA00066735 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D058282573DA00066735 /* InfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		3031D052282532D200066735 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		3031D0542825377C00066735 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		3031D056282541F300066735 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		3031D058282573DA00066735 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				3031D0542825377C00066735 /* FeedViewController.swift */,
 				3031D05028251E6C00066735 /* ProfileViewController.swift */,
 				3031D056282541F300066735 /* PostViewController.swift */,
+				3031D058282573DA00066735 /* InfoViewController.swift */,
 				3031D04328250FA000066735 /* Assets.xcassets */,
 				3031D04528250FA000066735 /* LaunchScreen.storyboard */,
 				3031D04828250FA000066735 /* Info.plist */,
@@ -153,6 +156,7 @@
 				3031D03F28250F9C00066735 /* ViewController.swift in Sources */,
 				3031D04F28251DFA00066735 /* MainTabBarViewController.swift in Sources */,
 				3031D03B28250F9C00066735 /* AppDelegate.swift in Sources */,
+				3031D059282573DA00066735 /* InfoViewController.swift in Sources */,
 				3031D05128251E6C00066735 /* ProfileViewController.swift in Sources */,
 				3031D03D28250F9C00066735 /* SceneDelegate.swift in Sources */,
 				3031D053282532D200066735 /* StartViewController.swift in Sources */,
