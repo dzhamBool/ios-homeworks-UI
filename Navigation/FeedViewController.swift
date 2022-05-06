@@ -8,7 +8,7 @@ class FeedViewController: UIViewController {
         view.backgroundColor = .lightGray
         makeButton()
     }
-    
+    let firstPost = Post(title: "The first post")
     private func makeButton() {
 let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
         button.center = view.center
@@ -19,8 +19,10 @@ let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
         view.addSubview(button)
     }
     @ objc private func tapAction() {
-let postPage = PostViewController()
+        let postPage = PostViewController()
+        
+        postPage.post = firstPost
         navigationController?.pushViewController(postPage, animated: true)
     }
-
+    
 }
