@@ -10,19 +10,17 @@ class ProfileViewController: UIViewController {
 
         return profileView
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        profileHeaderView.frame = view.safeAreaLayoutGuide.layoutFrame
-        profileHeaderView.backgroundColor = .lightGray
         layout()
     }
-    
-//    override func viewWillLayoutSubviews() {
-//        profileHeaderView.frame = view.safeAreaLayoutGuide.layoutFrame
-//        profileHeaderView.backgroundColor = .lightGray
-//    }
+
+    override func viewWillLayoutSubviews() {
+        profileHeaderView.frame = view.safeAreaLayoutGuide.layoutFrame
+        profileHeaderView.backgroundColor = .lightGray
+    }
 
     private func layout() {
         view.addSubview(profileHeaderView)
@@ -31,7 +29,7 @@ class ProfileViewController: UIViewController {
             profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             profileHeaderView.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor),
             profileHeaderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
+            profileHeaderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -220),
         ])
     }
 }

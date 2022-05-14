@@ -5,7 +5,7 @@ import UIKit
 class MainTabBarViewController: UITabBarController {
     let startVC = StartViewController()
     let firstVC = FeedViewController()
-    let secondVC = ProfileViewController()
+    let secondVC = ProfileViewController2()
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -3,9 +3,9 @@
 import UIKit
 
 class ProfileHeaderView: UIView, UITextFieldDelegate {
-
+    
     private var statusText = ""
-
+    
     private var avatar: UIImageView = {
         let avatar = UIImageView(frame: CGRect(x: 16, y: 16, width: 100, height: 100))
         avatar.image = UIImage(named: "cat")
@@ -38,7 +38,7 @@ class ProfileHeaderView: UIView, UITextFieldDelegate {
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         return button
     }()
-
+    
     private var status: UILabel = {
         let status = UILabel(frame: CGRect(x: 150, y: 81, width: 200, height: 30))
         status.text = "Waiting for something..."
@@ -47,7 +47,7 @@ class ProfileHeaderView: UIView, UITextFieldDelegate {
         status.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         return status
     }()
-
+    
     lazy var statusTextField: UITextField = {
         let textField = UITextField(frame: CGRect(x: 150, y: 117, width: 200, height: 50))
         textField.placeholder = "Enter your status here"
@@ -63,7 +63,7 @@ class ProfileHeaderView: UIView, UITextFieldDelegate {
         textField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         return textField
     }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(avatar)
@@ -72,26 +72,26 @@ class ProfileHeaderView: UIView, UITextFieldDelegate {
         addSubview(button)
         addSubview(statusTextField)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-
+        
         if let text =  textField.text {
             self.status.text = text
         }
         return true
     }
-
+    
     @objc private func statusTextChanged(_ textField: UITextField) {
         statusText = textField.text ?? ""
-
+        
     }
     @objc private func buttonPressed() {
         self.status.text = statusText
     }
-
+    
 }
 

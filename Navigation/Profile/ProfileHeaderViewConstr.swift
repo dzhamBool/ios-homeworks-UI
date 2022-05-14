@@ -98,6 +98,7 @@ class ProfileHeaderViewConstr: UIView, UITextFieldDelegate {
         [avatarImage, nameLabel, statusLabel, statusTextField, setStatusButton].forEach {addSubview( $0 )}
 
         NSLayoutConstraint.activate([
+
             // avatar
             avatarImage.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
             avatarImage.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
@@ -108,16 +109,16 @@ class ProfileHeaderViewConstr: UIView, UITextFieldDelegate {
             nameLabel.leadingAnchor.constraint(equalTo: self.avatarImage.trailingAnchor, constant: 16),
             nameLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             //button
-            setStatusButton.topAnchor.constraint(equalTo: self.avatarImage.bottomAnchor, constant: 72),
+            setStatusButton.topAnchor.constraint(equalTo: self.avatarImage.bottomAnchor, constant: 35),
             setStatusButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             setStatusButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
             // current status
-            statusLabel.bottomAnchor.constraint(equalTo: self.setStatusButton.topAnchor, constant: -80),
+            statusLabel.bottomAnchor.constraint(equalTo: self.setStatusButton.topAnchor, constant: -64),
             statusLabel.leadingAnchor.constraint(equalTo: self.nameLabel.leadingAnchor),
             statusLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             // set status text
-            statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 16),
+            statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 10),
             statusTextField.leadingAnchor.constraint(equalTo: statusLabel.leadingAnchor),
             statusTextField.trailingAnchor.constraint(equalTo: statusLabel.trailingAnchor),
             statusTextField.heightAnchor.constraint(equalToConstant: 40)
