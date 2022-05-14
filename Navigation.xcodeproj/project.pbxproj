@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		301C0186282E96D1008D8315 /* ProfileHeaderViewConstr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301C0185282E96D1008D8315 /* ProfileHeaderViewConstr.swift */; };
+		301C0188282FC58E008D8315 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301C0187282FC58E008D8315 /* Test.swift */; };
 		3031D03B28250F9C00066735 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D03A28250F9C00066735 /* AppDelegate.swift */; };
 		3031D03D28250F9C00066735 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D03C28250F9C00066735 /* SceneDelegate.swift */; };
 		3031D03F28250F9C00066735 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D03E28250F9C00066735 /* ViewController.swift */; };
 		3031D04428250FA000066735 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3031D04328250FA000066735 /* Assets.xcassets */; };
 		3031D04728250FA000066735 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3031D04528250FA000066735 /* LaunchScreen.storyboard */; };
 		3031D04F28251DFA00066735 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D04E28251DFA00066735 /* MainTabBarViewController.swift */; };
-		3031D05128251E6C00066735 /* ProfileViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D05028251E6C00066735 /* ProfileViewController1.swift */; };
 		3031D053282532D200066735 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D052282532D200066735 /* StartViewController.swift */; };
 		3031D0552825377C00066735 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D0542825377C00066735 /* FeedViewController.swift */; };
 		3031D057282541F300066735 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D056282541F300066735 /* PostViewController.swift */; };
@@ -23,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		301C0185282E96D1008D8315 /* ProfileHeaderViewConstr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewConstr.swift; sourceTree = "<group>"; };
+		301C0187282FC58E008D8315 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		3031D03728250F9C00066735 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3031D03A28250F9C00066735 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3031D03C28250F9C00066735 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,7 +34,6 @@
 		3031D04628250FA000066735 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3031D04828250FA000066735 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3031D04E28251DFA00066735 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
-		3031D05028251E6C00066735 /* ProfileViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileViewController1.swift; path = Navigation/ProfileViewController1.swift; sourceTree = SOURCE_ROOT; };
 		3031D052282532D200066735 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		3031D0542825377C00066735 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		3031D056282541F300066735 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -90,7 +92,8 @@
 			isa = PBXGroup;
 			children = (
 				30854B972829424700C3BB09 /* ProfileHeaderView.swift */,
-				3031D05028251E6C00066735 /* ProfileViewController1.swift */,
+				301C0187282FC58E008D8315 /* Test.swift */,
+				301C0185282E96D1008D8315 /* ProfileHeaderViewConstr.swift */,
 				30854B99282942A800C3BB09 /* ProfileViewController.swift */,
 			);
 			path = Profile;
@@ -169,9 +172,10 @@
 				3031D057282541F300066735 /* PostViewController.swift in Sources */,
 				3031D03F28250F9C00066735 /* ViewController.swift in Sources */,
 				3031D04F28251DFA00066735 /* MainTabBarViewController.swift in Sources */,
+				301C0186282E96D1008D8315 /* ProfileHeaderViewConstr.swift in Sources */,
 				3031D03B28250F9C00066735 /* AppDelegate.swift in Sources */,
+				301C0188282FC58E008D8315 /* Test.swift in Sources */,
 				3031D059282573DA00066735 /* InfoViewController.swift in Sources */,
-				3031D05128251E6C00066735 /* ProfileViewController1.swift in Sources */,
 				30854B9A282942A800C3BB09 /* ProfileViewController.swift in Sources */,
 				3031D03D28250F9C00066735 /* SceneDelegate.swift in Sources */,
 				30854B982829424700C3BB09 /* ProfileHeaderView.swift in Sources */,
