@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		301C0186282E96D1008D8315 /* ProfileHeaderViewConstr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301C0185282E96D1008D8315 /* ProfileHeaderViewConstr.swift */; };
-		301C0188282FC58E008D8315 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301C0187282FC58E008D8315 /* Test.swift */; };
 		3031D03B28250F9C00066735 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D03A28250F9C00066735 /* AppDelegate.swift */; };
 		3031D03D28250F9C00066735 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D03C28250F9C00066735 /* SceneDelegate.swift */; };
 		3031D03F28250F9C00066735 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D03E28250F9C00066735 /* ViewController.swift */; };
@@ -25,7 +24,6 @@
 
 /* Begin PBXFileReference section */
 		301C0185282E96D1008D8315 /* ProfileHeaderViewConstr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewConstr.swift; sourceTree = "<group>"; };
-		301C0187282FC58E008D8315 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		3031D03728250F9C00066735 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3031D03A28250F9C00066735 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3031D03C28250F9C00066735 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -92,7 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				30854B972829424700C3BB09 /* ProfileHeaderView.swift */,
-				301C0187282FC58E008D8315 /* Test.swift */,
 				301C0185282E96D1008D8315 /* ProfileHeaderViewConstr.swift */,
 				30854B99282942A800C3BB09 /* ProfileViewController.swift */,
 			);
@@ -174,7 +171,6 @@
 				3031D04F28251DFA00066735 /* MainTabBarViewController.swift in Sources */,
 				301C0186282E96D1008D8315 /* ProfileHeaderViewConstr.swift in Sources */,
 				3031D03B28250F9C00066735 /* AppDelegate.swift in Sources */,
-				301C0188282FC58E008D8315 /* Test.swift in Sources */,
 				3031D059282573DA00066735 /* InfoViewController.swift in Sources */,
 				30854B9A282942A800C3BB09 /* ProfileViewController.swift in Sources */,
 				3031D03D28250F9C00066735 /* SceneDelegate.swift in Sources */,
