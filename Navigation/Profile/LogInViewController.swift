@@ -77,12 +77,18 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }()
 
     private lazy var logInButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-//        button.backgroundImage = UIImage(named: "blue_pixel")
+        let imageNormal = UIImage(named: "blue_pixel")!.alpha(1.0)
+        let imageOther = UIImage(named: "blue_pixel")!.alpha(0.8)
+        button.setBackgroundImage(imageNormal, for: .normal)
+        button.setBackgroundImage(imageOther, for: .selected)
+        button.setBackgroundImage(imageOther, for: .highlighted)
+        button.setBackgroundImage(imageOther, for: .disabled)
         button.titleLabel?.textColor = .white
         button.setTitle("Log In", for: .normal)
         button.layer.cornerRadius = 10
+        button.clipsToBounds = true
         button.addTarget(self, action: #selector(tap), for:.touchUpInside)
         return button
     }()
@@ -141,5 +147,18 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         ])
     }
 
+
+}
+
+// MARK: - UIImage
+extension UIImage {
+
+    func alpha(_ value: CGFloat) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(at: .zero, blendMode: .normal, alpha: value)
+        let newImg = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImg!
+    }
 
 }
