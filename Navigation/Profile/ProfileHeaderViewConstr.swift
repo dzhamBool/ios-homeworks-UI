@@ -65,6 +65,8 @@ class ProfileHeaderViewConstr: UIView, UITextFieldDelegate {
         textField.backgroundColor = .white
         textField.keyboardType = .default
         textField.delegate = self
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
+        textField.leftViewMode = .always
         textField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         return textField
     }()
