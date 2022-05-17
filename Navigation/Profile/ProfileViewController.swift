@@ -4,33 +4,79 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    let profileHeaderView: ProfileHeaderViewConstr = {
-        let profileView = ProfileHeaderViewConstr()
-        profileView.backgroundColor = .green
+    private let post = Post.makeMockModel()
 
-        return profileView
+    private lazy var postTable: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        return tableView
     }()
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        layout()
-    }
-
-    override func viewWillLayoutSubviews() {
-        profileHeaderView.frame = view.safeAreaLayoutGuide.layoutFrame
-        profileHeaderView.backgroundColor = .lightGray
-    }
+            super.viewDidLoad()
+            view.backgroundColor = .white
+            layout()
+        }
 
     private func layout() {
-        view.addSubview(profileHeaderView)
-
+        view.addSubview(postTable)
         NSLayoutConstraint.activate([
-            profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            profileHeaderView.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor),
-            profileHeaderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            profileHeaderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -220),
+            postTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            postTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            postTable.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            postTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+
 }
+
+// MARK: - UITableViewDataSource
+extension ProfileViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return post.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+        var context = UIListContentConfiguration = cell.defaultContentConfiguration()
+        //context.ima
+        return cell
+    }
+}
+// MARK: - UITableViewDelegate
+extension ProfileViewController: UITableViewDelegate {
+
+}
+
+//    let profileHeaderView: ProfileHeaderViewConstr = {
+//        let profileView = ProfileHeaderViewConstr()
+//        profileView.backgroundColor = .green
+//
+//        return profileView
+//    }()
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        view.backgroundColor = .white
+//        layout()
+//    }
+//
+//    override func viewWillLayoutSubviews() {
+//        profileHeaderView.frame = view.safeAreaLayoutGuide.layoutFrame
+//        profileHeaderView.backgroundColor = .lightGray
+//    }
+//
+//    private func layout() {
+//        view.addSubview(profileHeaderView)
+//
+//        NSLayoutConstraint.activate([
+//            profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+//            profileHeaderView.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor),
+//            profileHeaderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+//            profileHeaderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -220),
+//        ])
+//    }
+//}
 
