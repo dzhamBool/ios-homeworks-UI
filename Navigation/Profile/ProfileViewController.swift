@@ -4,7 +4,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    private let post = Post.makeMockModel()
+    private let post = PostModel.makeMockModel()
 
     private lazy var postTable: UITableView = {
         let tableView = UITableView()
@@ -40,7 +40,8 @@ extension ProfileViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+        cell.setupCell(post[indexPath.row])
 
         return cell
     }
@@ -48,7 +49,7 @@ extension ProfileViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        100
+        UITableView.automaticDimension
     }
 
 }

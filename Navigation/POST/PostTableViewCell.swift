@@ -14,6 +14,7 @@ class PostTableViewCell: UITableViewCell {
         let imgView = UIImageView()
         imgView.translatesAutoresizingMaskIntoConstraints = false
         imgView.backgroundColor = .magenta // отключить
+        imgView.contentMode = .scaleAspectFit
         return imgView
     }()
 
@@ -28,6 +29,21 @@ class PostTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .orange
+        label.numberOfLines = 0
+        return label
+    }()
+
+    private let likesLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .red
+        return label
+    }()
+
+    private let viewsLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .green
         return label
     }()
 
@@ -40,8 +56,16 @@ class PostTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func setupCell(_ post: PostModel) {
+        postImageView.image = UIImage(named: post.image)
+        postAuthorLabel.text = post.author
+        descriptionLabel.text = post.description
+        likesLabel.text = "Likes: \(post.likes)"
+        viewsLabel.text = "Views: \(post.views)"
+    }
+
     private func layout() {
-        [whiteView, postImageView, postAuthorLabel, descriptionLabel].forEach { contentView.addSubview($0) }
+        [whiteView, postImageView, postAuthorLabel, descriptionLabel, likesLabel, viewsLabel].forEach { contentView.addSubview($0) }
 
         let viewInset: CGFloat = 8
         let inset: CGFloat = 10
@@ -65,7 +89,14 @@ class PostTableViewCell: UITableViewCell {
             descriptionLabel.topAnchor.constraint(equalTo: postAuthorLabel.bottomAnchor, constant: inset),
             descriptionLabel.leadingAnchor.constraint(equalTo: postAuthorLabel.leadingAnchor),
             descriptionLabel.trailingAnchor.constraint(equalTo: postAuthorLabel.trailingAnchor),
-            descriptionLabel.bottomAnchor.constraint(equalTo: whiteView.bottomAnchor, constant: -inset)
+            // likesLabel
+            likesLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: inset),
+            likesLabel.leadingAnchor.constraint(equalTo: descriptionLabel.leadingAnchor),
+            likesLabel.bottomAnchor.constraint(equalTo: whiteView.bottomAnchor, constant: -inset),
+// viewsLabel
+            viewsLabel.topAnchor.constraint(equalTo: likesLabel.topAnchor),
+            viewsLabel.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor, constant: -inset),
+            viewsLabel.bottomAnchor.constraint(equalTo: whiteView.bottomAnchor, constant: -inset)
         ])
     }
 }
