@@ -96,7 +96,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }()
 
     @objc private func tap() {
-        let profileVC = ProfileViewController2()
+        let profileVC = ProfileViewController()
         navigationController?.pushViewController(profileVC, animated: true)
     }
 
