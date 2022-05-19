@@ -5,7 +5,7 @@ import UIKit
 class MainTabBarViewController: UITabBarController {
     let startVC = StartViewController()
     let firstVC = FeedViewController()
-    let secondVC = ProfileViewController2()
+    let secondVC = LogInViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,12 +21,12 @@ class MainTabBarViewController: UITabBarController {
         let firstNavController = UINavigationController(rootViewController: firstVC)
         firstVC.tabBarItem.title = "Лента"
         firstVC.tabBarItem.image = UIImage(systemName: "bookmark")
-        firstVC.navigationItem.title = "LENTA"
+        firstVC.navigationItem.title = "Lenta"
 
         let secondNavController = UINavigationController(rootViewController: secondVC)
         secondVC.tabBarItem.title = "Профиль"
         secondVC.tabBarItem.image = UIImage(systemName: "info")
-        secondVC.navigationItem.title = "PROFILE"
+        secondVC.navigationItem.title = "Profile"
 
         viewControllers = [startNavController, firstNavController, secondNavController]
     }
