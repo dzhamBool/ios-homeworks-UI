@@ -55,9 +55,9 @@ class PhotosTableViewCell: UITableViewCell {
     }
 
     private func layout() {
-    photoCollection.delegate = self
-    photoCollection.dataSource = self
-    let inset: CGFloat = 12
+        photoCollection.delegate = self
+        photoCollection.dataSource = self
+        let inset: CGFloat = 12
 
         [photoCollection, headLabel, goToGalleryButton].forEach { contentView.addSubview($0) }
 
@@ -70,8 +70,8 @@ class PhotosTableViewCell: UITableViewCell {
             goToGalleryButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
             //photoCollection
             photoCollection.topAnchor.constraint(equalTo: headLabel.bottomAnchor, constant: inset),
-            photoCollection.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset - 8),
-            photoCollection.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset + 8),
+            photoCollection.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
+            photoCollection.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
             photoCollection.heightAnchor.constraint(equalToConstant: 100),
             photoCollection.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset)
         ])
@@ -83,7 +83,8 @@ class PhotosTableViewCell: UITableViewCell {
 
 extension PhotosTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
+        //return photos.count
+        return 4
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -99,7 +100,7 @@ extension PhotosTableViewCell: UICollectionViewDelegateFlowLayout {
     var sideInset: CGFloat { return 8 }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = (collectionView.bounds.width - sideInset * 3) / 4
+        let height = (collectionView.bounds.width - sideInset * 5) / 4
         return CGSize(width: height, height: height)
     }
 

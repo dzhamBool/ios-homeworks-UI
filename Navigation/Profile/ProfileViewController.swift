@@ -3,12 +3,12 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-
-
+    
+    
     let photosList = ["image1", "image2", "image3", "image4", "image5", "image6", "image7", "image8", "image9", "image10", "image11", "image12", "image13", "image14", "image16", "image17","image18", "image19", "image20"]
-
-
-// предыдущее дз
+    
+    
+    // предыдущее дз
     private let post = PostModel.makeMockModel()
     
     private lazy var postTable: UITableView = {
@@ -42,11 +42,11 @@ class ProfileViewController: UIViewController {
 
 // MARK: - UITableViewDataSource
 extension ProfileViewController: UITableViewDataSource {
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 1 : post.count
     }
@@ -54,6 +54,8 @@ extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier, for: indexPath) as! PhotosTableViewCell
+            cell.photos = photosList
+            cell.delegate = self
             cell.selectionStyle = .none
             return cell
         }
@@ -69,9 +71,6 @@ extension ProfileViewController: UITableViewDelegate {
         UITableView.automaticDimension
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return section == 0 ? ProfileHeaderViewConstr() : nil
     }
@@ -81,21 +80,11 @@ extension ProfileViewController: UITableViewDelegate {
     }
 }
 
-//// MARK: - UICollectionViewDataSource
-//extension ProfileViewController: UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        1
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        UICollectionViewCell()
-//
-//    }
-//
-//
-//}
-//
-//// MARK: - UICollectionViewDelegateFlowLayout
-//extension ProfileViewController: UICollectionViewDelegateFlowLayout {
-//
-//}
+// MARK: - PhotosTableViewCellDelegate
+extension ProfileViewController: PhotosTableViewCellDelegate {
+    func buttonTap() {
+        let photosVC = PhotosViewController()
+        photosVC.photos = photosList
+        navigationController?.pushViewController(photosVC, animated: true)
+    }
+}

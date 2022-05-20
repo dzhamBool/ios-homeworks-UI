@@ -6,8 +6,8 @@ class PhotosCollectionViewCellForTableView: UICollectionViewCell {
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .systemGray
-        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .clear
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6
         return imageView
@@ -28,7 +28,7 @@ class PhotosCollectionViewCellForTableView: UICollectionViewCell {
     private func configure() {
 
         contentView.addSubview(photoImageView)
-
+        
         NSLayoutConstraint.activate([
             photoImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             photoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
