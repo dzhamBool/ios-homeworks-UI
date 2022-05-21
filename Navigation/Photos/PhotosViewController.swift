@@ -20,7 +20,7 @@ class PhotosViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "Photo Gallery"
         configure()
-        
+        self.navigationController?.isNavigationBarHidden = false
     }
     private func configure() {
         view.addSubview(collectionView)

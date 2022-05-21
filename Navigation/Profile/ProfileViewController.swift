@@ -4,11 +4,8 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    
     let photosList = ["image1", "image2", "image3", "image4", "image5", "image6", "image7", "image8", "image9", "image10", "image11", "image12", "image13", "image14", "image16", "image17","image18", "image19", "image20"]
-    
-    
-    // предыдущее дз
+
     private let post = PostModel.makeMockModel()
     
     private lazy var postTable: UITableView = {
@@ -25,7 +22,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         layout()
-        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     private func layout() {
