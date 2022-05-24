@@ -94,12 +94,46 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         button.addTarget(self, action: #selector(tap), for:.touchUpInside)
         return button
     }()
+
+   private var warningLabel: UILabel = {
+        var warning = UILabel()
+        warning.translatesAutoresizingMaskIntoConstraints = false
+        warning.text = "Warning!" //Пароль не должен быть менее 5 символов"
+        warning.textColor = .red
+        warning.textAlignment = .center
+        warning.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+       //warning.isHidden = true
+        return warning
+    }()
     
     @objc private func tap() {
         let profileVC = ProfileViewController()
-        navigationController?.pushViewController(profileVC, animated: true)
+        if loginTextField.text!.isEmpty && passwordTextField.text!.isEmpty {
+            loginTextField.layer.borderColor = UIColor.red.cgColor
+            passwordTextField.layer.borderColor = UIColor.red.cgColor
+        } else if loginTextField.text!.isEmpty {
+            loginTextField.layer.borderColor = UIColor.red.cgColor
+        } else if  passwordTextField.text!.isEmpty {
+            passwordTextField.layer.borderColor = UIColor.red.cgColor
+       } else if passwordTextField.text!.count < 5 {
+            logInTopAnchor.constant += CGFloat(50)
+layoutWarning()
+
+   } else {
+            navigationController?.pushViewController(profileVC, animated: true)
+        }
     }
-    
+
+    private func layoutWarning() {
+        contentView.addSubview(warningLabel)
+        NSLayoutConstraint.activate([
+            warningLabel.leadingAnchor.constraint(equalTo: logInButton.leadingAnchor),
+            warningLabel.trailingAnchor.constraint(equalTo: logInButton.trailingAnchor),
+            warningLabel.bottomAnchor.constraint(equalTo: logInButton.topAnchor, constant: -16),
+            warningLabel.heightAnchor.constraint(equalToConstant: 34)
+        ])
+    }
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
         return true
@@ -150,7 +184,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         self.hideKeyboardWhenTappedAround()
         self.navigationController?.isNavigationBarHidden = true
     }
-    
+    var logInTopAnchor = NSLayoutConstraint()
     private func layout() {
         let indent: CGFloat = 16
         view.addSubview(scrollView)
@@ -167,7 +201,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         [logoImage, stackViewTextField, logInButton].forEach { contentView.addSubview($0) }
         
         scrollView.addSubview(contentView)
-        
+
+        logInTopAnchor = logInButton.topAnchor.constraint(equalTo: stackViewTextField.bottomAnchor, constant: indent)
+
         NSLayoutConstraint.activate([
             // contentView
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
@@ -186,11 +222,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             stackViewTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -indent),
             stackViewTextField.heightAnchor.constraint(equalToConstant: 100),
             // logInButton
-            logInButton.topAnchor.constraint(equalTo: stackViewTextField.bottomAnchor, constant: indent),
+            //logInButton.topAnchor.constraint(equalTo: stackViewTextField.bottomAnchor, constant: indent),
+            logInTopAnchor,
             logInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: indent),
             logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -indent),
             logInButton.heightAnchor.constraint(equalToConstant: 50),
-            logInButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -indent)
+            logInButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -indent),
+
         ])
     }
     

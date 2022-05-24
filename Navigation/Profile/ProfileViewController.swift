@@ -69,7 +69,9 @@ extension ProfileViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return section == 0 ? ProfileHeaderViewConstr() : nil
+        let headerView = ProfileHeaderViewConstr(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 220))
+
+        return section == 0 ? headerView : nil
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
