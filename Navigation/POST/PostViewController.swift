@@ -1,15 +1,11 @@
 
 import UIKit
 
-struct Post {
-    var title: String
-}
-
 class PostViewController: UIViewController {
-    var post: Post?
+    var post: PostModel?
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = post?.title
+        navigationItem.title = post?.author
         view.backgroundColor = .orange
         makeInfoButton()
     }
