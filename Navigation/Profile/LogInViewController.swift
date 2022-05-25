@@ -98,14 +98,17 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
    private var warningLabel: UILabel = {
         var warning = UILabel()
         warning.translatesAutoresizingMaskIntoConstraints = false
-        warning.text = "Warning!" //Пароль не должен быть менее 5 символов"
-        warning.textColor = .red
+        warning.text = "Пароль должен состоять из 7 символов"
+        warning.textColor = .darkGray
         warning.textAlignment = .center
-        warning.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-       //warning.isHidden = true
+       warning.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+       warning.isHidden = true
         return warning
     }()
-    
+
+let login = "111"//"cat@netology.com"
+    let password = "111" //"inBoots"
+
     @objc private func tap() {
         let profileVC = ProfileViewController()
         if loginTextField.text!.isEmpty && passwordTextField.text!.isEmpty {
@@ -113,13 +116,30 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             passwordTextField.layer.borderColor = UIColor.red.cgColor
         } else if loginTextField.text!.isEmpty {
             loginTextField.layer.borderColor = UIColor.red.cgColor
+        return
         } else if  passwordTextField.text!.isEmpty {
             passwordTextField.layer.borderColor = UIColor.red.cgColor
-       } else if passwordTextField.text!.count < 5 {
-            logInTopAnchor.constant += CGFloat(50)
-layoutWarning()
+       } else if passwordTextField.text!.count < 3 {
+           warningLabel.isHidden = false
+           self.passwordTextField.text = ""
 
-   } else {
+       } else if loginTextField.text != login && passwordTextField.text != password {
+
+           let alert = UIAlertController(title: "Внимание!", message: "Неверный логин или пароль", preferredStyle: .alert)
+           let okActon = UIAlertAction(title: "Retry", style: .default) { _ in
+                   self.loginTextField.text = ""
+                   self.passwordTextField.text = ""
+                   self.dismiss(animated: true)
+               }
+               let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                   print("Отмена")
+               }
+               alert.addAction(okActon)
+               alert.addAction(cancelAction)
+               present(alert, animated: true)
+
+           }
+    else {
             navigationController?.pushViewController(profileVC, animated: true)
         }
     }
@@ -129,8 +149,8 @@ layoutWarning()
         NSLayoutConstraint.activate([
             warningLabel.leadingAnchor.constraint(equalTo: logInButton.leadingAnchor),
             warningLabel.trailingAnchor.constraint(equalTo: logInButton.trailingAnchor),
-            warningLabel.bottomAnchor.constraint(equalTo: logInButton.topAnchor, constant: -16),
-            warningLabel.heightAnchor.constraint(equalToConstant: 34)
+            warningLabel.bottomAnchor.constraint(equalTo: logInButton.topAnchor, constant: -10),
+            warningLabel.heightAnchor.constraint(equalToConstant: 15)
         ])
     }
 
@@ -143,6 +163,7 @@ layoutWarning()
         super.viewDidLoad()
         configure()
         layout()
+        layoutWarning()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -202,7 +223,7 @@ layoutWarning()
         
         scrollView.addSubview(contentView)
 
-        logInTopAnchor = logInButton.topAnchor.constraint(equalTo: stackViewTextField.bottomAnchor, constant: indent)
+        logInTopAnchor = logInButton.topAnchor.constraint(equalTo: stackViewTextField.bottomAnchor, constant: 30)
 
         NSLayoutConstraint.activate([
             // contentView
@@ -231,7 +252,7 @@ layoutWarning()
 
         ])
     }
-    
+
 }
 
 // MARK: - UIImage

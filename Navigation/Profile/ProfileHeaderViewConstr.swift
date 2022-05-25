@@ -93,7 +93,15 @@ class ProfileHeaderViewConstr: UIView, UITextFieldDelegate {
 
     }
     @objc private func buttonPressed() {
+        if statusTextField.text!.isEmpty {
+            statusTextField.layer.borderColor = UIColor.red.cgColor
+            statusTextField.backgroundColor = .gray
+        } else {
         self.statusLabel.text = statusText
+            statusTextField.layer.borderColor = UIColor.black.cgColor
+            statusTextField.backgroundColor = .white
+            statusTextField.text = ""
+        }
     }
 
     private func addView() {
