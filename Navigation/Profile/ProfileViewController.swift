@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController {
         tableView.delegate = self
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
+        tableView.register(ProfileTableHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileTableHeaderView.identifier)
         return tableView
     }()
 
@@ -73,9 +74,10 @@ extension ProfileViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = ProfileHeaderViewConstr(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 220))
-
-        return section == 0 ? headerView : nil
+        //        let headerView = ProfileHeaderViewConstr(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 220))
+                let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileTableHeaderView.identifier) as! ProfileTableHeaderView
+                //view.delegate = self
+                return section == 0 ? headerView : nil
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
