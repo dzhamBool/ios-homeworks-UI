@@ -45,18 +45,21 @@ return button
         imagePosition = avatarImage.layer.position
          imageBounds = avatarImage.layer.bounds
 
-        let centrYScreen = UIScreen.main.bounds.height / 2 - 50
+        //let centrYScreen = UIScreen.main.bounds.height / 2 - 50
         UIView.animate(withDuration: 0.5,
                        delay: 0.0,
                        usingSpringWithDamping: 0.0,
                        initialSpringVelocity: 0.0,
                        options: .curveEaseInOut) {
             self.blackView.alpha = 0.7
-            self.avatarImage.center.y = centrYScreen
+
+            self.avatarImage.center.y = self.blackView.center.y //centrYScreen
             self.avatarImage.center.x = self.blackView.center.x
             self.avatarImage.layer.cornerRadius = 0
             self.avatarImage.layer.borderWidth = 0
             self.avatarImage.layer.bounds = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+            self.bringSubviewToFront(self.avatarImage)
+
         } completion: { _ in
             UIView.animate(withDuration: 0.3, delay: 0.0) {
                 self.layoutIfNeeded()
@@ -74,7 +77,8 @@ return button
                        usingSpringWithDamping: 0.0,
                        initialSpringVelocity: 0.0,
                        options: .curveEaseInOut) {
-            self.blackView.alpha = 0.7
+            self.blackView.alpha = 0.0
+            self.avatarImage.layer.borderWidth = 3.0
             self.avatarImage.layer.position = self.imagePosition
             self.avatarImage.layer.bounds = self.imageBounds
             self.avatarImage.layer.cornerRadius = self.avatarImage.bounds.width / 2
@@ -176,6 +180,20 @@ return button
     private func addView() {
         [avatarImage, nameLabel, statusLabel, statusTextField, setStatusButton].forEach {addSubview( $0 )}
 
+        addSubview(blackView)
+
+        NSLayoutConstraint.activate([
+            blackView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height),
+            blackView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
+        ])
+        blackView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
+
+        addSubview(closeButton)
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: blackView.topAnchor, constant: 16),
+            closeButton.trailingAnchor.constraint(equalTo: blackView.trailingAnchor, constant: -16)
+            ])
+
         NSLayoutConstraint.activate([
 
             // avatar
@@ -201,9 +219,6 @@ return button
             statusTextField.leadingAnchor.constraint(equalTo: statusLabel.leadingAnchor),
             statusTextField.trailingAnchor.constraint(equalTo: statusLabel.trailingAnchor),
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
-// blackView
-            blackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide),
-            blackView.leadingAnchor.constraint(equalTo: self.)
         ])
     }
 
