@@ -9,6 +9,15 @@ import UIKit
 
 class DetailPostView: UIView {
 
+    struct PostModel {
+        var author: String
+        var description: String
+        var image: String
+        var likes: Int
+        var views: Int
+    }
+
+
     let postAuthorLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false

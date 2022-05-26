@@ -16,6 +16,8 @@ class ProfileViewController: UIViewController {
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
         tableView.register(ProfileTableHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileTableHeaderView.identifier)
+        tableView.rowHeight = UITableView.automaticDimension
+                
         return tableView
     }()
 
@@ -60,7 +62,7 @@ extension ProfileViewController: UITableViewDataSource {
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
         cell.selectionStyle = .none
-       // cell.delegate = self
+       //cell.delegate = self
         
         cell.setupCell(post[indexPath.row])
     
@@ -85,7 +87,7 @@ extension ProfileViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailPostView = DetailPostView()
+        //let detailPostView = DetailPostView()
       //  detailPostView.setupView(post: post[indexPath.section][indexPath.row])
     }
 }
@@ -100,6 +102,52 @@ extension ProfileViewController: PhotosTableViewCellDelegate {
 }
 
 // MARK: - PostTableViewCellProtocol
+extension ProfileViewController: PostTableViewCellProtocol {
+    func tapLikesLabelGestureRecognizerDelegate(cell: PostTableViewCell) {
+
+        self.post.lik += 1
+
+//       // guard let index = tableView.indexPath.row else { return }
+//
+//    let indexPath = IndexPath(row: index, section: 1)
+//    post[index].likes += 1
+//   // self.tableView.reloadRows(at: [indexPath], with: .fade)
+    }
+//    // НАЖАТИЕ НА LIKE И IMAGE
+
+    func tapPostImageViewGestureRecognizerDelegate(cell: PostTableViewCell) { // УВЕЛИЧЕНИЕ ПРОСМОТРОВ
+
+        let presentPostViewController = DetailView()
+        //guard let index = self.tableView.indexPath(for: cell)?.row else { return }
+//
+//        //let index = self.tableView.indexPath(for: cell)?.row
+//        let indexPath = IndexPath(row: index, section: 1)
+//        post[indexPath.row].views += 1
+//        let article = post[indexPath.row]
+
+//        let viewModel = DetailView.PostModel(
+//            author: article.author,
+//            description: article.description,
+//            image: article.image,
+//            likes: article.likes,
+//            views: article.views)
+//
+//        presentPostViewController.setup(with: viewModel)
+//        self.view.addSubview(presentPostViewController)
+//
+//        presentPostViewController.translatesAutoresizingMaskIntoConstraints = false
+//
+//        NSLayoutConstraint.activate([
+//            presentPostViewController.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            presentPostViewController.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            presentPostViewController.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//            presentPostViewController.topAnchor.constraint(equalTo: view.topAnchor)
+//        ])
+
+        //self.tableView.reloadRows(at: [indexPath], with: .fade)
+    }
+
+}
 //extension ProfileViewController: PostTableViewCellProtocol {
 //    func tapPostImageViewGestureRecognizerDelegate(cell: PostTableViewCell) {
 //
