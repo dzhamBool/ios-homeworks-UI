@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3000319D28403CFB00EA054F /* AnimatedPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3000319C28403CFB00EA054F /* AnimatedPhotoViewController.swift */; };
 		3031D03B28250F9C00066735 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D03A28250F9C00066735 /* AppDelegate.swift */; };
 		3031D03D28250F9C00066735 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D03C28250F9C00066735 /* SceneDelegate.swift */; };
 		3031D03F28250F9C00066735 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031D03E28250F9C00066735 /* ViewController.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3000319C28403CFB00EA054F /* AnimatedPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedPhotoViewController.swift; sourceTree = "<group>"; };
 		3031D03728250F9C00066735 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3031D03A28250F9C00066735 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3031D03C28250F9C00066735 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				305317B2283FB0DD000B4693 /* Images.swift */,
 				305EB8782837776600D90066 /* PhotosCollectionViewCell.swift */,
 				305EB876283770B200D90066 /* PhotosViewController.swift */,
+				3000319C28403CFB00EA054F /* AnimatedPhotoViewController.swift */,
 				305EB8B42837B2B200D90066 /* PhotosCollectionViewCellForTableView.swift */,
 			);
 			path = Photos;
@@ -234,6 +237,7 @@
 				30E6FDF5283279AF00FE176E /* LogInViewController.swift in Sources */,
 				3031D059282573DA00066735 /* InfoViewController.swift in Sources */,
 				305317B3283FB0DD000B4693 /* Images.swift in Sources */,
+				3000319D28403CFB00EA054F /* AnimatedPhotoViewController.swift in Sources */,
 				305317AD283FA5DB000B4693 /* SetupProtocol.swift in Sources */,
 				30854B9A282942A800C3BB09 /* ProfileViewController.swift in Sources */,
 				3031D03D28250F9C00066735 /* SceneDelegate.swift in Sources */,

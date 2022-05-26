@@ -12,8 +12,84 @@ class PhotosViewController: UIViewController {
         return layout
     }()
 
+    private lazy var photoCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
+        collectionView.backgroundColor = .white
 
-    
+        return collectionView
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupCollectionView()
+        self.navigationController?.navigationBar.isHidden = false
+
+        self.navigationItem.title = "Photo Gallery"
+    }
+
+    private func setupCollectionView() {
+        self.view.addSubview(self.photoCollectionView)
+
+       // NSLayoutConstraint.activate([
+        //            photoCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+        //            photoCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+        //            photoCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+        //            photoCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        //        ])
+
+        NSLayoutConstraint.activate([
+            self.photoCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.photoCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.photoCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.photoCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
+    }
+}
+
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return photosList.count
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as! PhotosCollectionViewCell
+
+            let photo = photosList[indexPath.row]
+            let postModel = PhotosCollectionViewCell.PhotoGalery(image: photo.image)
+            cell.setup(with: postModel)
+            return cell
+        }
+    }
+// MARK: - UICollectionViewDelegateFlowLayout
+extension PhotosViewController: UICollectionViewDelegateFlowLayout {
+    private var sideInset: CGFloat { return 8 }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (collectionView.bounds.width - sideInset * 4) / 3
+        return CGSize(width: width, height: width)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sideInset
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        UIEdgeInsets(top: sideInset, left: sideInset, bottom: sideInset, right: sideInset)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return sideInset
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.section, indexPath.item)
+    }
+
 }
 //    private lazy var collectionView: UICollectionView = {
 //        let layout = UICollectionViewFlowLayout()

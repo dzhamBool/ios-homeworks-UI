@@ -30,17 +30,17 @@ class PhotosTableViewCell: UITableViewCell {
         return stackView
     }()
 
-    private let photoCollection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.translatesAutoresizingMaskIntoConstraints = false
-       // collection.dataSource = self
-        //collection.delegate = self
-        collection.backgroundColor = .clear
-        collection.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
-        return collection
-    }()
+//    private let photoCollection: UICollectionView = {
+//        let layout = UICollectionViewFlowLayout()
+//        layout.scrollDirection = .horizontal
+//        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+//        collection.translatesAutoresizingMaskIntoConstraints = false
+////        collection.dataSource = self
+////        collection.delegate = self
+//        collection.backgroundColor = .clear
+//        collection.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
+//        return collection
+//    }()
 
     private lazy var headLabel: UILabel = {
         let label = UILabel()
