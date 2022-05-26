@@ -11,10 +11,16 @@ class PostTableViewCell: UITableViewCell {
 
     weak var delegate: PostTableViewCellProtocol?
 
-    private var tapLikesLabelGestureRecognizer = UITapGestureRecognizer() // НАЖАТИЕ LIKETITLE
-    private var tapPostImageViewGestureRecognizer = UITapGestureRecognizer() // НАЖАТИЕ IMAGE
+    private var tapLikesLabelGestureRecognizer = UITapGestureRecognizer()
+    private var tapPostImageViewGestureRecognizer = UITapGestureRecognizer() 
 
-
+    struct PostModel: PostViewProtocol {
+        var author: String
+        var description: String
+        var image: String
+        var likes: Int
+        var views: Int
+    }
 
     private let postImageView: UIImageView = {
         let imgView = UIImageView()
@@ -89,13 +95,22 @@ class PostTableViewCell: UITableViewCell {
         self.viewsLabel.text = nil
     }
 
-    func setupCell(_ post: PostModel) {
-        postAuthorLabel.text = post.author
-        postImageView.image = UIImage(named: post.image)
-        descriptionLabel.text = post.description
-        likesLabel.text = "Likes: " + String(post.likes)
-        viewsLabel.text = "Views: " + String(post.views)
-    }
+//    func setupCell(_ post: PostModel) {
+//        postAuthorLabel.text = post.author
+//        postImageView.image = UIImage(named: post.image)
+//        descriptionLabel.text = post.description
+//        likesLabel.text = "Likes: " + String(post.likes)
+//        viewsLabel.text = "Views: " + String(post.views)
+//    }
+
+    func setup(_ postModel: PostViewProtocol) {
+        guard let postModel = postModel as? PostModel else { return }
+        self.postAuthorLabel.text = postModel.author
+        self.postImageView.image = UIImage(named: postModel.image)
+        self.descriptionLabel.text = postModel.description
+        self.likesLabel.text = "Likes: " + String(postModel.likes)
+        self.viewsLabel.text = "Views: " + String(postModel.views)
+        }
 
     private func setupGesture() {
             self.tapLikesLabelGestureRecognizer.addTarget(self, action: #selector(self.likesLabelHandleGesture(_:)))
@@ -118,6 +133,10 @@ class PostTableViewCell: UITableViewCell {
 
         }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
 
     private func layout() {
         [postAuthorLabel, postImageView, descriptionLabel, likesLabel, viewsLabel].forEach { contentView.addSubview($0) }
