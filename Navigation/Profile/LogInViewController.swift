@@ -115,8 +115,7 @@ let login = "111"//"cat@netology.com"
             loginTextField.layer.borderColor = UIColor.red.cgColor
             passwordTextField.layer.borderColor = UIColor.red.cgColor
         } else if loginTextField.text!.isEmpty {
-            loginTextField.layer.borderColor = UIColor.red.cgColor
-        return
+            loginTextField.layer.borderColor = UIColor.red.cgColor            
         } else if  passwordTextField.text!.isEmpty {
             passwordTextField.layer.borderColor = UIColor.red.cgColor
        } else if passwordTextField.text!.count < 3 {

@@ -6,7 +6,7 @@ class ProfileViewController: UIViewController {
     
     let photosList = ["image1", "image2", "image3", "image4", "image5", "image6", "image7", "image8", "image9", "image10", "image11", "image12", "image13", "image14", "image16", "image17","image18", "image19", "image20"]
 
-    private let post = PostModel.makeMockModel()
+    private let post: [PostModel] = PostModel.makeMockModel()
     
     private lazy var postTable: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -17,7 +17,8 @@ class ProfileViewController: UIViewController {
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
         return tableView
     }()
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -57,8 +58,11 @@ extension ProfileViewController: UITableViewDataSource {
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
-        cell.setupCell(post[indexPath.row])
+        cell.selectionStyle = .none
+       // cell.delegate = self
         
+        cell.setupCell(post[indexPath.row])
+    
         return cell
     }
 }
@@ -77,6 +81,11 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 ? 220 : 0
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailPostView = DetailPostView()
+      //  detailPostView.setupView(post: post[indexPath.section][indexPath.row])
+    }
 }
 
 // MARK: - PhotosTableViewCellDelegate
@@ -87,3 +96,21 @@ extension ProfileViewController: PhotosTableViewCellDelegate {
         navigationController?.pushViewController(photosVC, animated: true)
     }
 }
+
+// MARK: - PostTableViewCellProtocol
+//extension ProfileViewController: PostTableViewCellProtocol {
+//    func tapPostImageViewGestureRecognizerDelegate(cell: PostTableViewCell) {
+//
+//    }
+//
+//    func tapLikesLabelGestureRecognizerDelegate(cell: PostTableViewCell) {
+//       guard let index = self.tableView.indexPath(for: cell).row else { return }
+//        let i = self.tableView.indexPath(for: cell)?.row
+//        let ip = IndexPath(
+//                let indexPath = IndexPath(row: index, section: 1)
+//                post[index].likes += 1
+//                    self.tableView.reloadRows(at: [indexPath], with: .fade)
+//    }
+//
+//}
+
