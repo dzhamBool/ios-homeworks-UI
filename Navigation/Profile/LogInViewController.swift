@@ -37,17 +37,15 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         let login = UITextField()
         login.translatesAutoresizingMaskIntoConstraints = false
         login.backgroundColor = .systemGray6
-        login.placeholder = "E-mail or phone"   // в макете "E-mail of phone"
+        login.placeholder = "E-mail or phone"
         login.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         login.autocapitalizationType = .none
-        //login.tintColor =
         login.textColor = .black
         login.layer.borderColor = UIColor.lightGray.cgColor
         login.layer.borderWidth = 0.5
         login.layer.cornerRadius = 10
         login.clipsToBounds = true
         login.backgroundColor = .white
-        //login.keyboardType = .default
         login.delegate = self
         login.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         login.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: login.frame.height))
@@ -59,10 +57,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         let password = UITextField()
         password.translatesAutoresizingMaskIntoConstraints = false
         password.backgroundColor = .systemGray6
-        password.placeholder = "Password"   // в макете "E-mail of phone"
+        password.placeholder = "Password"
         password.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         password.autocapitalizationType = .none
-        //login.tintColor =
         password.textColor = .black
         password.isSecureTextEntry = true
         password.layer.borderColor = UIColor.lightGray.cgColor
@@ -95,9 +92,59 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return button
     }()
     
+    private var warningLabel: UILabel = {
+        var warning = UILabel()
+        warning.translatesAutoresizingMaskIntoConstraints = false
+        warning.text = "Пароль должен состоять из 7 символов"
+        warning.textColor = .darkGray
+        warning.textAlignment = .center
+        warning.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        warning.isHidden = true
+        return warning
+    }()
+    
+    let login = "12345"         // "cat@netology.com"
+    let password = "1234567"    // "inBoots"
+    
     @objc private func tap() {
         let profileVC = ProfileViewController()
-        navigationController?.pushViewController(profileVC, animated: true)
+        if loginTextField.text!.isEmpty && passwordTextField.text!.isEmpty {
+            loginTextField.layer.borderColor = UIColor.red.cgColor
+            passwordTextField.layer.borderColor = UIColor.red.cgColor
+        } else if loginTextField.text!.isEmpty {
+            loginTextField.layer.borderColor = UIColor.red.cgColor
+        } else if  passwordTextField.text!.isEmpty {
+            passwordTextField.layer.borderColor = UIColor.red.cgColor
+        } else if passwordTextField.text!.count < 7 {
+            warningLabel.isHidden = false
+            self.passwordTextField.text = ""
+        } else if loginTextField.text != login && passwordTextField.text != password {
+            let alert = UIAlertController(title: "Внимание!", message: "Неверный логин или пароль", preferredStyle: .alert)
+            let okActon = UIAlertAction(title: "Retry", style: .default) { _ in
+                self.loginTextField.text = ""
+                self.passwordTextField.text = ""
+                self.dismiss(animated: true)
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                print("Отмена")
+            }
+            alert.addAction(okActon)
+            alert.addAction(cancelAction)
+            present(alert, animated: true)
+        }
+        else {
+            navigationController?.pushViewController(profileVC, animated: true)
+        }
+    }
+    
+    private func layoutWarning() {
+        contentView.addSubview(warningLabel)
+        NSLayoutConstraint.activate([
+            warningLabel.leadingAnchor.constraint(equalTo: logInButton.leadingAnchor),
+            warningLabel.trailingAnchor.constraint(equalTo: logInButton.trailingAnchor),
+            warningLabel.bottomAnchor.constraint(equalTo: logInButton.topAnchor, constant: -10),
+            warningLabel.heightAnchor.constraint(equalToConstant: 15)
+        ])
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -109,6 +156,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         configure()
         layout()
+        layoutWarning()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -150,7 +198,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         self.hideKeyboardWhenTappedAround()
         self.navigationController?.isNavigationBarHidden = true
     }
-    
+    var logInTopAnchor = NSLayoutConstraint()
     private func layout() {
         let indent: CGFloat = 16
         view.addSubview(scrollView)
@@ -162,11 +210,12 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
-        
         [loginTextField, passwordTextField].forEach { stackViewTextField.addArrangedSubview($0) }
         [logoImage, stackViewTextField, logInButton].forEach { contentView.addSubview($0) }
         
         scrollView.addSubview(contentView)
+        
+        logInTopAnchor = logInButton.topAnchor.constraint(equalTo: stackViewTextField.bottomAnchor, constant: 30)
         
         NSLayoutConstraint.activate([
             // contentView
@@ -186,19 +235,17 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             stackViewTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -indent),
             stackViewTextField.heightAnchor.constraint(equalToConstant: 100),
             // logInButton
-            logInButton.topAnchor.constraint(equalTo: stackViewTextField.bottomAnchor, constant: indent),
+            logInTopAnchor,
             logInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: indent),
             logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -indent),
             logInButton.heightAnchor.constraint(equalToConstant: 50),
-            logInButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -indent)
+            logInButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -indent),
         ])
     }
-    
 }
 
 // MARK: - UIImage
 extension UIImage {
-    
     func alpha(_ value: CGFloat) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, scale)
         draw(at: .zero, blendMode: .normal, alpha: value)
@@ -206,6 +253,5 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return newImg!
     }
-    
 }
 

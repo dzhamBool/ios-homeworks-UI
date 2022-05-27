@@ -3,9 +3,14 @@ import UIKit
 
 class PhotosCollectionViewCell: UICollectionViewCell {
     
+    struct PhotoGalery: PostViewProtocol {
+        var image: String
+    }
+    
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 6
         imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -21,18 +26,27 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func update(_ imageName: String) {
-        photoImageView.image = UIImage(named: imageName)
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.photoImageView.image = nil
     }
     
     private func layout() {
-        contentView.addSubview(photoImageView)
+        self.addSubview(photoImageView)
         
         NSLayoutConstraint.activate([
-            photoImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            photoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            photoImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            photoImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            photoImageView.topAnchor.constraint(equalTo: self.topAnchor),
+            photoImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            photoImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            photoImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
+    }
+}
+
+// MARK: - extension PhotosCollectionViewCell:
+extension PhotosCollectionViewCell: SetupProtocol {
+    func setup(with postModel: PostViewProtocol) {
+        guard let postModel = postModel as? PhotoGalery else { return }
+        self.photoImageView.image = UIImage(named: postModel.image)
     }
 }

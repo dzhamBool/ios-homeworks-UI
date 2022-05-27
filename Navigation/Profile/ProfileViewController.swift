@@ -3,21 +3,20 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    
-    let photosList = ["image1", "image2", "image3", "image4", "image5", "image6", "image7", "image8", "image9", "image10", "image11", "image12", "image13", "image14", "image16", "image17","image18", "image19", "image20"]
 
-    private let post = PostModel.makeMockModel()
-    
-    private lazy var postTable: UITableView = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
+        tableView.register(ProfileTableHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileTableHeaderView.identifier)
+        tableView.rowHeight = UITableView.automaticDimension
+
         return tableView
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -26,13 +25,13 @@ class ProfileViewController: UIViewController {
     }
     
     private func layout() {
-        view.addSubview(postTable)
+        self.view.addSubview(self.tableView)
         
         NSLayoutConstraint.activate([
-            postTable.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            postTable.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            postTable.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            postTable.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)
+            self.tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            self.tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
 }
@@ -51,15 +50,20 @@ extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier, for: indexPath) as! PhotosTableViewCell
-            cell.photos = photosList
             cell.delegate = self
+            cell.layer.shouldRasterize = true
+            cell.layer.rasterizationScale = UIScreen.main.scale
             cell.selectionStyle = .none
             return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+            cell.selectionStyle = .none
+            cell.delegate = self
+            let article = post[indexPath.row]
+            let postModel = PostTableViewCell.PostModel(author: article.author, description: article.description, image: article.image, likes: article.likes, views: article.views)
+            cell.setup(postModel)
+            return cell
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
-        cell.setupCell(post[indexPath.row])
-        
-        return cell
     }
 }
 // MARK: - UITableViewDelegate
@@ -69,7 +73,8 @@ extension ProfileViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return section == 0 ? ProfileHeaderViewConstr() : nil
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileTableHeaderView.identifier) as! ProfileTableHeaderView
+        return section == 0 ? headerView : nil
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -77,11 +82,51 @@ extension ProfileViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - PhotosTableViewCellDelegate
-extension ProfileViewController: PhotosTableViewCellDelegate {
-    func buttonTap() {
+// MARK: - PhotosTableViewCellProtocol
+extension ProfileViewController: PhotosTableViewCellProtocol {
+    func delegateButtonAction(cell: PhotosTableViewCell) {
         let photosVC = PhotosViewController()
-        photosVC.photos = photosList
         navigationController?.pushViewController(photosVC, animated: true)
     }
 }
+
+// MARK: - PostTableViewCellProtocol
+extension ProfileViewController: PostTableViewCellProtocol {
+    func tapPostImageViewGestureRecognizerDelegate(cell: PostTableViewCell) {
+        let presentPostVC = DetailPostView()
+        guard let index = self.tableView.indexPath(for: cell)?.row else { return }
+        let indexPath = IndexPath(row: index, section: 1)
+        post[indexPath.row].views += 1
+        let article = post[indexPath.row]
+        let postModel = DetailPostView.PostModel(
+            author: article.author,
+            description: article.description,
+            image: article.image,
+            likes: article.likes,
+            views: article.views)
+
+        presentPostVC.setup(with: postModel)
+        self.view.addSubview(presentPostVC)
+        presentPostVC.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            presentPostVC.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            presentPostVC.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            presentPostVC.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            presentPostVC.topAnchor.constraint(equalTo: view.topAnchor)
+        ])
+        self.tableView.reloadRows(at: [indexPath], with: .fade)
+    }
+
+    func tapLikesLabelGestureRecognizerDelegate(cell: PostTableViewCell) {
+        guard let index = self.tableView.indexPath(for: cell)?.row else { return }
+        let indexPath = IndexPath(row: index, section: 1)
+        post[index].likes += 1
+        self.tableView.reloadRows(at: [indexPath], with: .fade)
+    }
+}
+
+
+
+
+
