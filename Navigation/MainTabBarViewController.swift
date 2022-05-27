@@ -5,9 +5,8 @@ import UIKit
 class MainTabBarViewController: UITabBarController {
     let startVC = StartViewController()
     let firstVC = FeedViewController()
-  //let secondVC = ProfileViewController()
-   let secondVC = LogInViewController()
-    //let secondVC = PhotosViewController()
+    //let secondVC = LogInViewController()
+    let secondVC = ProfileViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +31,5 @@ class MainTabBarViewController: UITabBarController {
 
         viewControllers = [startNavController, firstNavController, secondNavController]
     }
-
 }
 

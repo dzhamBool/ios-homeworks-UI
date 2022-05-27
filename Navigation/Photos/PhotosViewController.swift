@@ -2,52 +2,63 @@
 import UIKit
 
 class PhotosViewController: UIViewController {
-    var photos: [String] = []
-
-    private lazy var collectionView: UICollectionView = {
+    
+    private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        collection.backgroundColor = .clear
-        collection.dataSource = self
-        collection.delegate = self
-        collection.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
-        return collection
+        layout.scrollDirection = .vertical
+        
+        return layout
+    }()
+    
+    private lazy var photoCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
+        collectionView.backgroundColor = .white
+        
+        return collectionView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        navigationItem.title = "Photo Gallery"
-        configure()
+        setupCollectionView()
         self.navigationController?.isNavigationBarHidden = false
+        self.navigationItem.title = "Photo Gallery"
     }
-    private func configure() {
-        view.addSubview(collectionView)
+    
+    private func setupCollectionView() {
+        self.view.addSubview(self.photoCollectionView)
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            self.photoCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.photoCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.photoCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.photoCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
-    
 }
 
-// MARK: - UICollectionViewDataSource
-extension PhotosViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return photosList.count
+    }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as! PhotosCollectionViewCell
-        cell.update(photos[indexPath.item])
+        
+        let photo = photosList[indexPath.row]
+        let postModel = PhotosCollectionViewCell.PhotoGalery(image: photo.image)
+        cell.setup(with: postModel)
         return cell
     }
 }
-
 // MARK: - UICollectionViewDelegateFlowLayout
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     private var sideInset: CGFloat { return 8 }
@@ -67,5 +78,23 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.section, indexPath.item)
+        let animatedPhotoViewController = AnimatedPhotoViewController()
+        let photo = photosList[indexPath.row]
+        let viewModel = AnimatedPhotoViewController.ViewModel(image: photo.image)
+        animatedPhotoViewController.setup(with: viewModel)
+        self.view.addSubview(animatedPhotoViewController.view)
+        self.addChild(animatedPhotoViewController)
+        animatedPhotoViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            animatedPhotoViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            animatedPhotoViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            animatedPhotoViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            animatedPhotoViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = true
+        animatedPhotoViewController.didMove(toParent: self)
     }
 }

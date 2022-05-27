@@ -1,8 +1,15 @@
 
-
 import UIKit
 
-class ProfileHeaderViewConstr: UIView, UITextFieldDelegate {
+class ProfileTableHeaderView: UITableViewHeaderFooterView, UITextFieldDelegate {
+
+    private lazy var blackView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.alpha = 0.0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     private var statusText = ""
 
@@ -14,8 +21,64 @@ class ProfileHeaderViewConstr: UIView, UITextFieldDelegate {
         avatar.layer.borderColor = UIColor.white.cgColor
         avatar.layer.cornerRadius = 50.0
         avatar.clipsToBounds = true
+        avatar.isUserInteractionEnabled = true
         return avatar
     }()
+
+    private lazy var closeButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        button.tintColor = .systemGray5
+        button.alpha = 0.0
+        button.imageView?.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
+        button.addTarget(self, action: #selector(tapToClose), for: .touchUpInside)
+        return button
+    }()
+
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showAvatar))
+        avatarImage.addGestureRecognizer(tapGesture)
+    }
+
+    @objc private func showAvatar() {
+        imagePosition = avatarImage.layer.position
+        imageBounds = avatarImage.layer.bounds
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.0,
+                       options: .curveEaseInOut) {
+            self.blackView.alpha = 0.7
+
+            self.avatarImage.center.y = self.blackView.center.y
+            self.avatarImage.center.x = self.blackView.center.x
+            self.avatarImage.layer.cornerRadius = 0
+            self.avatarImage.layer.borderWidth = 0
+            self.avatarImage.layer.bounds = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+        } completion: { _ in
+            UIView.animate(withDuration: 0.3, delay: 0.0) {
+                self.layoutIfNeeded()
+                self.closeButton.alpha = 1
+            }
+        }
+    }
+
+    private lazy var imagePosition = avatarImage.layer.position
+    private lazy var imageBounds = avatarImage.layer.bounds
+
+    @objc private func tapToClose() {
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.0,
+                       options: .curveEaseInOut) {
+            self.blackView.alpha = 0.0
+            self.avatarImage.layer.borderWidth = 3.0
+            self.avatarImage.layer.position = self.imagePosition
+            self.avatarImage.layer.bounds = self.imageBounds
+            self.avatarImage.layer.cornerRadius = self.avatarImage.bounds.width / 2
+            self.closeButton.alpha = 0.0
+            self.layoutIfNeeded()
+        }
+    }
+
     private var nameLabel: UILabel = {
         var name = UILabel()
         name.translatesAutoresizingMaskIntoConstraints = false
@@ -23,6 +86,7 @@ class ProfileHeaderViewConstr: UIView, UITextFieldDelegate {
         name.textColor = .black
         name.textAlignment = .left
         name.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+
         return name
     }()
     private lazy var setStatusButton: UIButton = {
@@ -71,9 +135,11 @@ class ProfileHeaderViewConstr: UIView, UITextFieldDelegate {
         return textField
     }()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         addView()
+        bringSubviewToFront(avatarImage)
+        setupGesture()
     }
 
     required init?(coder: NSCoder) {
@@ -97,7 +163,7 @@ class ProfileHeaderViewConstr: UIView, UITextFieldDelegate {
             statusTextField.layer.borderColor = UIColor.red.cgColor
             statusTextField.backgroundColor = .gray
         } else {
-        self.statusLabel.text = statusText
+            self.statusLabel.text = statusText
             statusTextField.layer.borderColor = UIColor.black.cgColor
             statusTextField.backgroundColor = .white
             statusTextField.text = ""
@@ -107,8 +173,19 @@ class ProfileHeaderViewConstr: UIView, UITextFieldDelegate {
     private func addView() {
         [avatarImage, nameLabel, statusLabel, statusTextField, setStatusButton].forEach {addSubview( $0 )}
 
+        addSubview(blackView)
         NSLayoutConstraint.activate([
+            blackView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height),
+            blackView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
+        ])
+        blackView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
+        addSubview(closeButton)
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: blackView.topAnchor, constant: 16),
+            closeButton.trailingAnchor.constraint(equalTo: blackView.trailingAnchor, constant: -16)
+        ])
 
+        NSLayoutConstraint.activate([
             // avatar
             avatarImage.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
             avatarImage.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
@@ -131,9 +208,7 @@ class ProfileHeaderViewConstr: UIView, UITextFieldDelegate {
             statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 10),
             statusTextField.leadingAnchor.constraint(equalTo: statusLabel.leadingAnchor),
             statusTextField.trailingAnchor.constraint(equalTo: statusLabel.trailingAnchor),
-            statusTextField.heightAnchor.constraint(equalToConstant: 40)
+            statusTextField.heightAnchor.constraint(equalToConstant: 40),
         ])
     }
-
 }
-
