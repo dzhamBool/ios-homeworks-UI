@@ -107,8 +107,8 @@
 				3031D052282532D200066735 /* StartViewController.swift */,
 				3031D058282573DA00066735 /* InfoViewController.swift */,
 				3031D04E28251DFA00066735 /* MainTabBarViewController.swift */,
-				3031D04528250FA000066735 /* LaunchScreen.storyboard */,
 				30371F772834353C00C1A70C /* UIView+Extension.swift */,
+				3031D04528250FA000066735 /* LaunchScreen.storyboard */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";

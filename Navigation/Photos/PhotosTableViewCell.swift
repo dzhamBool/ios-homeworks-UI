@@ -9,8 +9,6 @@ protocol PhotosTableViewCellProtocol: AnyObject {
 class PhotosTableViewCell: UITableViewCell {
     weak var delegate: PhotosTableViewCellProtocol?
 
-   // var photos = [String]()
-
     private lazy var backView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
@@ -30,22 +28,9 @@ class PhotosTableViewCell: UITableViewCell {
         return stackView
     }()
 
-//    private let photoCollection: UICollectionView = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .horizontal
-//        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        collection.translatesAutoresizingMaskIntoConstraints = false
-////        collection.dataSource = self
-////        collection.delegate = self
-//        collection.backgroundColor = .clear
-//        collection.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
-//        return collection
-//    }()
-
     private lazy var headLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        //label.numberOfLines = 1
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         label.text = "Photos"
@@ -64,14 +49,13 @@ class PhotosTableViewCell: UITableViewCell {
         return button
     }()
 
-   private lazy var layout: UICollectionViewFlowLayout = {
+    private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 8
 
         return layout
     }()
-
 
     private lazy var photoCollectionView: UICollectionView = {
 
@@ -85,9 +69,9 @@ class PhotosTableViewCell: UITableViewCell {
         return collectionView
     }()
 
-        @objc private func goToGallery() {
-            delegate?.delegateButtonAction(cell: self)
-        }
+    @objc private func goToGallery() {
+        delegate?.delegateButtonAction(cell: self)
+    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -99,8 +83,6 @@ class PhotosTableViewCell: UITableViewCell {
     }
 
     private func setupView() {
-//        photoCollection.dataSource = self
-//        photoCollection.delegate = self
         self.backgroundColor = .systemGray6
         self.contentView.addSubview(self.backView)
         self.backView.addSubview(self.stackView)
@@ -129,46 +111,46 @@ class PhotosTableViewCell: UITableViewCell {
         ])
     }
 }
-        // MARK: - UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource
 
-        extension PhotosTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
-            func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-               // return photosList.count
-                return 4
-            }
+extension PhotosTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // return photosList.count
+        return 4
+    }
 
-            func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as! PhotosCollectionViewCell
-                let photo = photosList[indexPath.row]
-                let postModel = PhotosCollectionViewCell.PhotoGalery(image: photo.image)
-                cell.setup(with: postModel)
-                return cell
-            }
-        }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as! PhotosCollectionViewCell
+        let photo = photosList[indexPath.row]
+        let postModel = PhotosCollectionViewCell.PhotoGalery(image: photo.image)
+        cell.setup(with: postModel)
+        return cell
+    }
+}
 
- // MARK: - UICollectionViewDelegateFlowLayout
+// MARK: - UICollectionViewDelegateFlowLayout
 
-        extension PhotosTableViewCell: UICollectionViewDelegateFlowLayout {
-            var sideInset: CGFloat { return 8 }
+extension PhotosTableViewCell: UICollectionViewDelegateFlowLayout {
+    var sideInset: CGFloat { return 8 }
 
-            func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-                let height = (collectionView.bounds.width - sideInset * 5) / 4
-                return CGSize(width: height, height: height)
-            }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = (collectionView.bounds.width - sideInset * 5) / 4
+        return CGSize(width: height, height: height)
+    }
 
-            func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-                return sideInset
-            }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sideInset
+    }
 
-            func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-                UIEdgeInsets(top: sideInset, left: sideInset, bottom: sideInset, right: sideInset)
-            }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        UIEdgeInsets(top: sideInset, left: sideInset, bottom: sideInset, right: sideInset)
+    }
 
-            func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-                return sideInset
-            }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return sideInset
+    }
 
-            func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-                print(indexPath.section, indexPath.item)
-            }
-        }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.section, indexPath.item)
+    }
+}

@@ -2,7 +2,7 @@
 import UIKit
 
 class PhotosCollectionViewCellForTableView: UICollectionViewCell {
-
+    
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -12,7 +12,7 @@ class PhotosCollectionViewCellForTableView: UICollectionViewCell {
         imageView.layer.cornerRadius = 6
         return imageView
     }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -20,13 +20,12 @@ class PhotosCollectionViewCellForTableView: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     func update(_ imageName: String) {
         photoImageView.image = UIImage(named: imageName)
     }
-
+    
     private func configure() {
-
         contentView.addSubview(photoImageView)
         
         NSLayoutConstraint.activate([

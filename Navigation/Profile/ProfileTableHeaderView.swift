@@ -4,7 +4,7 @@ import UIKit
 class ProfileTableHeaderView: UITableViewHeaderFooterView, UITextFieldDelegate {
 
     private lazy var blackView: UIView = {
-let view = UIView()
+        let view = UIView()
         view.backgroundColor = .black
         view.alpha = 0.0
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +33,7 @@ let view = UIView()
         button.alpha = 0.0
         button.imageView?.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
         button.addTarget(self, action: #selector(tapToClose), for: .touchUpInside)
-return button
+        return button
     }()
 
     private func setupGesture() {
@@ -49,13 +49,11 @@ return button
                        options: .curveEaseInOut) {
             self.blackView.alpha = 0.7
 
-            self.avatarImage.center.y = self.blackView.center.y 
+            self.avatarImage.center.y = self.blackView.center.y
             self.avatarImage.center.x = self.blackView.center.x
             self.avatarImage.layer.cornerRadius = 0
             self.avatarImage.layer.borderWidth = 0
             self.avatarImage.layer.bounds = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
-
-
         } completion: { _ in
             UIView.animate(withDuration: 0.3, delay: 0.0) {
                 self.layoutIfNeeded()
@@ -138,7 +136,7 @@ return button
     }()
 
     override init(reuseIdentifier: String?) {
-    super.init(reuseIdentifier: reuseIdentifier)
+        super.init(reuseIdentifier: reuseIdentifier)
         addView()
         bringSubviewToFront(avatarImage)
         setupGesture()
@@ -165,7 +163,7 @@ return button
             statusTextField.layer.borderColor = UIColor.red.cgColor
             statusTextField.backgroundColor = .gray
         } else {
-        self.statusLabel.text = statusText
+            self.statusLabel.text = statusText
             statusTextField.layer.borderColor = UIColor.black.cgColor
             statusTextField.backgroundColor = .white
             statusTextField.text = ""
@@ -176,21 +174,18 @@ return button
         [avatarImage, nameLabel, statusLabel, statusTextField, setStatusButton].forEach {addSubview( $0 )}
 
         addSubview(blackView)
-
         NSLayoutConstraint.activate([
             blackView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height),
             blackView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
         ])
         blackView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
-
         addSubview(closeButton)
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: blackView.topAnchor, constant: 16),
             closeButton.trailingAnchor.constraint(equalTo: blackView.trailingAnchor, constant: -16)
-            ])
+        ])
 
         NSLayoutConstraint.activate([
-
             // avatar
             avatarImage.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
             avatarImage.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
@@ -216,5 +211,4 @@ return button
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
         ])
     }
-
 }

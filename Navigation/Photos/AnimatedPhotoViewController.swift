@@ -30,25 +30,12 @@ class AnimatedPhotoViewController: UIViewController {
         button.alpha = 0.0
         button.imageView?.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
         button.addTarget(self, action: #selector(tapToClose), for: .touchUpInside)
-return button
+        return button
     }()
-
-
-//    private lazy var backButton: UIButton = {
-//        let button = UIButton()
-//        //let image = UIImage(named: "cancel")
-//        button.setImage(UIImage(systemName: "xmark.circle.fill", for: .normal),
-//        //button.setBackgroundImage(image, for: .normal)
-//        button.addTarget(self, action: #selector(tapAction), for: .touchUpInside)
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.alpha = 0.0
-//
-//        return button
-//    }()
 
     @objc func tapToClose() {
         closeLargeImage()
-}
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +50,7 @@ return button
 
         let inset: CGFloat = 16
 
-     positionXLargeImage = self.largeImage.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+        positionXLargeImage = self.largeImage.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         positionYLargeImage = self.largeImage.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         widthLargeImage = self.largeImage.widthAnchor.constraint(equalToConstant: 140)
         heightLargeImage = self.largeImage.heightAnchor.constraint(equalToConstant: 140)
@@ -77,7 +64,7 @@ return button
     }
     func launch() {
         NSLayoutConstraint.deactivate([
-           self.positionXLargeImage, self.positionYLargeImage, self.widthLargeImage, self.heightLargeImage
+        self.positionXLargeImage, self.positionYLargeImage, self.widthLargeImage, self.heightLargeImage
         ].compactMap( {$0} ))
 
         self.widthLargeImage = self.largeImage.widthAnchor.constraint(equalTo: self.view.widthAnchor)
@@ -86,7 +73,7 @@ return button
         self.positionYLargeImage = self.largeImage.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
 
         NSLayoutConstraint.activate([
-           self.positionXLargeImage, self.positionYLargeImage, self.widthLargeImage, self.heightLargeImage
+            self.positionXLargeImage, self.positionYLargeImage, self.widthLargeImage, self.heightLargeImage
         ].compactMap( {$0} ))
         self.largeImage.layer.cornerRadius = 0.0
         self.view.backgroundColor = .black.withAlphaComponent(0.8)
@@ -95,7 +82,7 @@ return button
             self.view.layoutIfNeeded()
         }) { _ in
             UIView.animate(withDuration: 0.25) {
-            self.closeButton.alpha = 1
+                self.closeButton.alpha = 1
             }
         }
     }
@@ -125,7 +112,6 @@ return button
             self.navigationController?.navigationBar.isHidden = false
         }
     }
-
 }
 
 // MARK: - AnimatedPhotoViewController: SetupProtocol
@@ -134,6 +120,4 @@ extension AnimatedPhotoViewController: SetupProtocol {
         guard let postModel = postModel as? ViewModel else { return }
         self.largeImage.image = UIImage(named: postModel.image)
     }
-
-
 }

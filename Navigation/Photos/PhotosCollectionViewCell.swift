@@ -2,11 +2,11 @@
 import UIKit
 
 class PhotosCollectionViewCell: UICollectionViewCell {
-
+    
     struct PhotoGalery: PostViewProtocol {
         var image: String
     }
-
+    
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -25,16 +25,12 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-//    func update(_ imageName: String) {
-//        photoImageView.image = UIImage(named: imageName)
-//    }
-
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.photoImageView.image = nil
     }
-
+    
     private func layout() {
         self.addSubview(photoImageView)
         

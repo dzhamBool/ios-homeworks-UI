@@ -5,7 +5,7 @@ import UIKit
 class ProfileViewController: UIViewController {
 
     private lazy var tableView: UITableView = {
-       let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
@@ -13,7 +13,7 @@ class ProfileViewController: UIViewController {
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
         tableView.register(ProfileTableHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileTableHeaderView.identifier)
         tableView.rowHeight = UITableView.automaticDimension
-                
+
         return tableView
     }()
 
@@ -54,21 +54,17 @@ extension ProfileViewController: UITableViewDataSource {
             cell.layer.shouldRasterize = true
             cell.layer.rasterizationScale = UIScreen.main.scale
             cell.selectionStyle = .none
-
             return cell
-
         } else {
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
-        cell.selectionStyle = .none
-      cell.delegate = self
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+            cell.selectionStyle = .none
+            cell.delegate = self
             let article = post[indexPath.row]
             let postModel = PostTableViewCell.PostModel(author: article.author, description: article.description, image: article.image, likes: article.likes, views: article.views)
             cell.setup(postModel)
-    
-        return cell
+            return cell
+        }
     }
-}
 }
 // MARK: - UITableViewDelegate
 extension ProfileViewController: UITableViewDelegate {
@@ -77,9 +73,8 @@ extension ProfileViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-                let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileTableHeaderView.identifier) as! ProfileTableHeaderView
-                //view.delegate = self
-                return section == 0 ? headerView : nil
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileTableHeaderView.identifier) as! ProfileTableHeaderView
+        return section == 0 ? headerView : nil
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -103,16 +98,17 @@ extension ProfileViewController: PostTableViewCellProtocol {
         let indexPath = IndexPath(row: index, section: 1)
         post[indexPath.row].views += 1
         let article = post[indexPath.row]
-
         let postModel = DetailPostView.PostModel(
             author: article.author,
             description: article.description,
             image: article.image,
             likes: article.likes,
             views: article.views)
+
         presentPostVC.setup(with: postModel)
         self.view.addSubview(presentPostVC)
         presentPostVC.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             presentPostVC.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             presentPostVC.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -128,7 +124,7 @@ extension ProfileViewController: PostTableViewCellProtocol {
         post[index].likes += 1
         self.tableView.reloadRows(at: [indexPath], with: .fade)
     }
-    }
+}
 
 
 
