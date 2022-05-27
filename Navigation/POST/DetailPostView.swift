@@ -14,7 +14,7 @@ class DetailPostView: UIView {
     private lazy var mainView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
-        view.backgroundColor = .black.withAlphaComponent(0.8)
+        view.backgroundColor = .black.withAlphaComponent(0.7)
         view.translatesAutoresizingMaskIntoConstraints = false
 
         return view
@@ -37,7 +37,7 @@ class DetailPostView: UIView {
         label.preferredMaxLayoutWidth = self.frame.size.width
         label.textColor = .black
         label.setContentCompressionResistancePriority(UILayoutPriority(1000), for: .vertical)
-        // label.translatesAutoresizingMaskIntoConstraints = false
+        label.translatesAutoresizingMaskIntoConstraints = false
 
         return label
     }()
@@ -47,7 +47,7 @@ class DetailPostView: UIView {
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .black
-        //imageView.setContentCompressionResistancePriority(UILayoutPriority(250), for: .vertical)
+        imageView.setContentCompressionResistancePriority(UILayoutPriority(250), for: .vertical)
 
         return imageView
     }()
@@ -60,7 +60,7 @@ class DetailPostView: UIView {
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .systemGray
         label.setContentCompressionResistancePriority(UILayoutPriority(750), for: .vertical)
-        // label.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
+        label.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
         label.translatesAutoresizingMaskIntoConstraints = false
 
         return label
@@ -103,14 +103,15 @@ class DetailPostView: UIView {
         return label
     }()
 
-    private lazy var backButton: UIButton = {
+    private lazy var closeButton: UIButton = {
         let button = UIButton()
-        let image = UIImage(named: "cancel")
-        button.setBackgroundImage(image, for: .normal)
-        button.addTarget(self, action: #selector(clickButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-
-        return button
+        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        button.tintColor = .systemGray5
+       // button.alpha = 0.0
+        button.imageView?.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
+        button.addTarget(self, action: #selector(tapToClose), for: .touchUpInside)
+return button
     }()
 
     override init(frame: CGRect) {
@@ -124,7 +125,7 @@ class DetailPostView: UIView {
 
     private func setupView() {
         self.addSubview(self.mainView)
-        self.addSubview(self.backButton)
+        self.addSubview(self.closeButton)
         self.mainView.addSubview(self.backView)
         self.backView.addSubview(self.postAuthorLabel)
         self.backView.addSubview(self.postImageView)
@@ -167,14 +168,17 @@ class DetailPostView: UIView {
             self.likeStackView.trailingAnchor.constraint(equalTo: self.backView.trailingAnchor, constant: -16),
             self.likeStackView.bottomAnchor.constraint(equalTo: self.backView.bottomAnchor, constant: -16),
 
-            self.backButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
-            self.backButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            self.backButton.heightAnchor.constraint(equalToConstant: 40),
-            self.backButton.widthAnchor.constraint(equalToConstant: 40)
+            closeButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
+            closeButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            //positionXLargeImage, positionYLargeImage, widthLargeImage, heightLargeImage
+//            self.closeButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
+//            self.closeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+//            self.closeButton.heightAnchor.constraint(equalToConstant: 40),
+//            self.closeButton.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
 
-    @objc private func clickButton() {
+    @objc private func tapToClose() {
         removeFromSuperview()
     }
 }

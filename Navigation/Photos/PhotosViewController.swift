@@ -6,8 +6,8 @@ class PhotosViewController: UIViewController {
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = 8
-        layout.minimumLineSpacing = 8
+//        layout.minimumInteritemSpacing = 8
+//        layout.minimumLineSpacing = 8
 
         return layout
     }()
@@ -27,7 +27,7 @@ class PhotosViewController: UIViewController {
         super.viewDidLoad()
         setupCollectionView()
         self.navigationController?.navigationBar.isHidden = false
-
+        //self.tabBarController?.tabBar.isHidden = true
         self.navigationItem.title = "Photo Gallery"
     }
 
@@ -88,9 +88,27 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.section, indexPath.item)
-    }
+        let animatedPhotoViewController = AnimatedPhotoViewController()
+        let photo = photosList[indexPath.row]
+        let viewModel = AnimatedPhotoViewController.ViewModel(image: photo.image)
+        animatedPhotoViewController.setup(with: viewModel)
+        self.view.addSubview(animatedPhotoViewController.view)
+        self.addChild(animatedPhotoViewController)
+        animatedPhotoViewController.view.translatesAutoresizingMaskIntoConstraints = false
 
+        NSLayoutConstraint.activate([
+            animatedPhotoViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            animatedPhotoViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            animatedPhotoViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            animatedPhotoViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = true
+        animatedPhotoViewController.didMove(toParent: self)
+    }
 }
+
 //    private lazy var collectionView: UICollectionView = {
 //        let layout = UICollectionViewFlowLayout()
 //        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
