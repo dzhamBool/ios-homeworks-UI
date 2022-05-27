@@ -42,18 +42,12 @@ return button
     }
 
     @objc private func showAvatar() {
-        imagePosition = avatarImage.layer.position
-         imageBounds = avatarImage.layer.bounds
-
-        //let centrYScreen = UIScreen.main.bounds.height / 2 - 50
         UIView.animate(withDuration: 0.5,
                        delay: 0.0,
-                       usingSpringWithDamping: 0.0,
-                       initialSpringVelocity: 0.0,
                        options: .curveEaseInOut) {
             self.blackView.alpha = 0.7
 
-            self.avatarImage.center.y = self.blackView.center.y //centrYScreen
+            self.avatarImage.center.y = self.blackView.center.y 
             self.avatarImage.center.x = self.blackView.center.x
             self.avatarImage.layer.cornerRadius = 0
             self.avatarImage.layer.borderWidth = 0
@@ -74,8 +68,6 @@ return button
     @objc private func tapToClose() {
         UIView.animate(withDuration: 0.5,
                        delay: 0.0,
-                       usingSpringWithDamping: 0.0,
-                       initialSpringVelocity: 0.0,
                        options: .curveEaseInOut) {
             self.blackView.alpha = 0.0
             self.avatarImage.layer.borderWidth = 3.0

@@ -10,7 +10,7 @@ struct PostModel {
     var likes: Int
     var views: Int
     
-    //static func makeMockModel() -> [PostModel] {
+    
         
 }
 

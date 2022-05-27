@@ -44,7 +44,7 @@ class DetailPostView: UIView {
 
     private lazy var postImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .black
         imageView.setContentCompressionResistancePriority(UILayoutPriority(250), for: .vertical)
@@ -108,7 +108,6 @@ class DetailPostView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
         button.tintColor = .systemGray5
-       // button.alpha = 0.0
         button.imageView?.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
         button.addTarget(self, action: #selector(tapToClose), for: .touchUpInside)
 return button
@@ -117,6 +116,7 @@ return button
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupView()
+
     }
 
     required init?(coder: NSCoder) {
@@ -140,10 +140,10 @@ return button
 
 
         NSLayoutConstraint.activate([
-            self.mainView.topAnchor.constraint(equalTo: self.topAnchor),
+            self.mainView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             self.mainView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             self.mainView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.mainView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            self.mainView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
 
             self.backView.centerXAnchor.constraint(equalTo: self.mainView.centerXAnchor),
             self.backView.leadingAnchor.constraint(equalTo: self.mainView.leadingAnchor),
@@ -169,12 +169,7 @@ return button
             self.likeStackView.bottomAnchor.constraint(equalTo: self.backView.bottomAnchor, constant: -16),
 
             closeButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
-            closeButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            //positionXLargeImage, positionYLargeImage, widthLargeImage, heightLargeImage
-//            self.closeButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
-//            self.closeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-//            self.closeButton.heightAnchor.constraint(equalToConstant: 40),
-//            self.closeButton.widthAnchor.constraint(equalToConstant: 40)
+            closeButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16)
         ])
     }
 
