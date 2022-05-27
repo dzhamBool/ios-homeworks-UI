@@ -42,6 +42,8 @@ return button
     }
 
     @objc private func showAvatar() {
+        imagePosition = avatarImage.layer.position
+        imageBounds = avatarImage.layer.bounds
         UIView.animate(withDuration: 0.5,
                        delay: 0.0,
                        options: .curveEaseInOut) {
@@ -52,7 +54,7 @@ return button
             self.avatarImage.layer.cornerRadius = 0
             self.avatarImage.layer.borderWidth = 0
             self.avatarImage.layer.bounds = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
-            self.bringSubviewToFront(self.avatarImage)
+
 
         } completion: { _ in
             UIView.animate(withDuration: 0.3, delay: 0.0) {
@@ -138,6 +140,7 @@ return button
     override init(reuseIdentifier: String?) {
     super.init(reuseIdentifier: reuseIdentifier)
         addView()
+        bringSubviewToFront(avatarImage)
         setupGesture()
     }
 
